@@ -12,14 +12,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticlesController extends AbstractController{
 
-    
+    private $articles;
 
     /**
      * @Route("/")
      * @Method({"GET"})
      */
     public function index(){    
-        $articles = new ArticlesList();
-        return $this->render('articles/index.html.twig');
+        $this->articles = new ArticlesList();
+        return $this->render('articles/index.html.twig', array('articles' => $this->articles->getArticles()));
     }
+
+    /**
+     * @Route("/article/{id})
+     */
+    public function detail($id){
+        $this->articles = new ArticlesList();
+        return $this->render('articles/details.html.twig', array('article' => $this->articles->getArticle($id)));
+    }
+    
 }

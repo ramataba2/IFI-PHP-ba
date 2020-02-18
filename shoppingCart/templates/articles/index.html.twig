@@ -4,6 +4,24 @@
 {% block body %}
 
 
-<h1>Articles<h1>
+<h1>Articles</h1>
 
+{% if articles %}
+    <table>
+        <thead>
+            <tr><th>Nom de de l'article</th><th>Informations</th></tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                <td> {{article.Name()}} </td>
+                <td> <a href="/article/{{article.Id()}}"> Details></a> </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p> Aucun article dans le panier <p>
+
+    {% endif %}
 {% endblock %}
