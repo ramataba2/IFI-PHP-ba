@@ -15,7 +15,7 @@ class ArticlesController extends AbstractController{
     private $articles;
 
     /**
-     * @Route("/")
+     * @Route("/", name="articles_list")
      * @Method({"GET"})
      */
     public function index(){    
@@ -24,11 +24,15 @@ class ArticlesController extends AbstractController{
     }
 
     /**
-     * @Route("/article/{id})
+     * @Route("/article/{id}", name="articles_details")
      */
     public function detail($id){
         $this->articles = new ArticlesList();
-        return $this->render('articles/details.html.twig', array('article' => $this->articles->getArticle($id)));
+        $verif = htmlspecialchars($id);
+        if(is_numeric($verif)){
+        return $this->render('articles/details.html.twig', array('article' => $this->articles->getArticle($verif)));
+        }
+        return $this->render('articles/error.html.twig');
     }
     
 }
